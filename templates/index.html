@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ info.name }} | الجودة والتميز</title>
+    <style>
+        :root { --main: #1a4a8e; --gold: #d4af37; }
+        body { font-family: 'Arial', sans-serif; background: #f4f4f4; margin: 0; text-align: center; }
+        header { background: var(--main); color: white; padding: 40px; border-bottom: 5px solid var(--gold); }
+        .container { max-width: 800px; margin: 20px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input, select { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
+        .btn { background: var(--main); color: white; padding: 15px; border: none; cursor: pointer; width: 90%; font-size: 18px; border-radius: 8px; font-weight: bold; }
+        .wa-btn { background: #25d366; color: white; display: block; padding: 15px; text-decoration: none; margin: 20px auto; width: 85%; border-radius: 8px; font-weight: bold; }
+        footer { margin-top: 40px; color: #666; padding: 20px; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-size: 35px; font-weight: bold;">القليوبي</div>
+    <p>الجودة والتميز في عالم الفوم</p>
+    <small>{{ info.domain }}</small>
+</header>
+
+<div class="container">
+    <h2>📐 احسب تكلفة طلبيتك أونلاين</h2>
+    <form method="POST">
+        <select name="p_type">
+            {% for key, p in products.items() %}
+            <option value="{{ key }}">{{ p.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="l" placeholder="الطول (سم)" required>
+        <input type="number" name="w" placeholder="العرض (سم)" required>
+        <input type="number" name="t" placeholder="التخانة (سم)" required>
+        <button type="submit" class="btn">احسب السعر الآن</button>
+    </form>
+
+    {% if result %}
+    <div style="background: #fff9e6; padding: 20px; margin-top: 25px; border: 2px dashed var(--gold); border-radius: 10px;">
+        <h3>تفاصيل الطلب:</h3>
+        <p>المنتج: <b>{{ result.p_name }}</b></p>
+        <p>السعر التقريبي: <b style="color: #c0392b; font-size: 26px;">{{ result.price }} جنيه</b></p>
+        <a href="{{ result.wa_link }}" target="_blank" class="wa-btn">إرسال الطلب للأستاذ منصور واتساب ✅</a>
+    </div>
+    {% endif %}
+</div>
+
+<footer>
+    <p>للتواصل والاستفسار: <b>{{ info.phone }}</b></p>
+    <p>العنوان: {{ info.address }}</p>
+</footer>
+
+</body>
+</html>
