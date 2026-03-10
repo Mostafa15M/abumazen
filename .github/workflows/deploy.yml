@@ -1,0 +1,25 @@
+name: Qalyouby Deploy System
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: 45.58.159.30
+          username: 11298776
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            cd /var/www/qalyoubysponge
+            git pull origin main
+            pip install -r requirements.txt
+            sudo systemctl restart qalyouby_app
